@@ -1,8 +1,8 @@
 import { resolve } from "path";
 import { existsSync, outputFileSync } from "fs-extra";
 import { renderJavaScriptOptions } from "./render-options";
-import { Component } from "../component";
 import { Project } from "../project";
+import { ProjenRc } from "../projenrc/projenrc";
 export interface ProjenrcOptions {
   /**
    * The name of the projenrc file.
@@ -14,22 +14,22 @@ export interface ProjenrcOptions {
 /**
  * Sets up a javascript project to use TypeScript for projenrc.
  */
-export class Projenrc extends Component {
-  private readonly rcfile: string;
+export class Projenrc extends ProjenRc {
+  public readonly filePath: string;
 
   constructor(project: Project, options: ProjenrcOptions = {}) {
     super(project);
 
-    this.rcfile = options.filename ?? ".projenrc.js";
+    this.filePath = options.filename ?? ".projenrc.js";
 
     // this is the task projen executes when running `projen`
-    project.defaultTask?.exec(`node ${this.rcfile}`);
+    project.defaultTask?.exec(`node ${this.filePath}`);
 
     this.generateProjenrc();
   }
 
   private generateProjenrc() {
-    const rcfile = resolve(this.project.outdir, this.rcfile);
+    const rcfile = resolve(this.project.outdir, this.filePath);
     if (existsSync(rcfile)) {
       return; // already exists
     }

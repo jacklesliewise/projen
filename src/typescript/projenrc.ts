@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { existsSync, outputFileSync } from "fs-extra";
-import { Component } from "../component";
 import { renderJavaScriptOptions } from "../javascript/render-options";
+import { ProjenRc } from "../projenrc/projenrc";
 import { TypeScriptProject } from "../typescript";
 
 export interface ProjenrcOptions {
@@ -23,20 +23,20 @@ export interface ProjenrcOptions {
 /**
  * Sets up a typescript project to use TypeScript for projenrc.
  */
-export class Projenrc extends Component {
-  private readonly rcfile: string;
+export class Projenrc extends ProjenRc {
+  public readonly filePath: string;
 
   constructor(project: TypeScriptProject, options: ProjenrcOptions = {}) {
     super(project);
 
-    this.rcfile = options.filename ?? ".projenrc.ts";
+    this.filePath = options.filename ?? ".projenrc.ts";
 
     const projensrc = options.projenCodeDir ?? "projenrc";
 
     // tell eslint to take .projenrc.ts and *.ts files under `projen` into account as a dev-dependency
-    project.tsconfigDev.addInclude(this.rcfile);
-    project.eslint?.allowDevDeps(this.rcfile);
-    project.eslint?.addIgnorePattern(`!${this.rcfile}`);
+    project.tsconfigDev.addInclude(this.filePath);
+    project.eslint?.allowDevDeps(this.filePath);
+    project.eslint?.addIgnorePattern(`!${this.filePath}`);
 
     project.tsconfigDev.addInclude(`${projensrc}/**/*.ts`);
     project.eslint?.allowDevDeps(`${projensrc}/**/*.ts`);
@@ -50,14 +50,14 @@ export class Projenrc extends Component {
     // we use "tsconfig.dev.json" here to allow projen source files to reside
     // anywhere in the project tree.
     project.defaultTask?.exec(
-      `ts-node --project ${project.tsconfigDev.fileName} ${this.rcfile}`
+      `ts-node --project ${project.tsconfigDev.fileName} ${this.filePath}`
     );
 
     this.generateProjenrc();
   }
 
   private generateProjenrc() {
-    const rcfile = resolve(this.project.outdir, this.rcfile);
+    const rcfile = resolve(this.project.outdir, this.filePath);
     if (existsSync(rcfile)) {
       return; // already exists
     }

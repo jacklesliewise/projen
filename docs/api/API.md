@@ -23,6 +23,7 @@ Name|Description
 [Project](#projen-project)|Base project.
 [ProjectBuild](#projen-projectbuild)|Manages a standard build process for all projects.
 [Projects](#projen-projects)|Programmatic API for projen.
+[ProjenRc](#projen-projenrc)|A component representing the projen runtime configuration.
 [Projenrc](#projen-projenrc)|Sets up a project to use JSON for projenrc.
 [Renovatebot](#projen-renovatebot)|Defines renovatebot configuration for projen project.
 [SampleDir](#projen-sampledir)|Renders the given files into the directory if the directory does not exist.
@@ -2402,11 +2403,56 @@ static createProject(options: CreateProjectOptions): void
 
 
 
+## class ProjenRc 🔹 <a id="projen-projenrc"></a>
+
+A component representing the projen runtime configuration.
+
+__Extends__: [Component](#projen-component)
+__Implemented by__: [java.Projenrc](#projen-java-projenrc), [javascript.Projenrc](#projen-javascript-projenrc), [python.Projenrc](#projen-python-projenrc), [typescript.Projenrc](#projen-typescript-projenrc), [Projenrc](#projen-projenrc)
+
+### Initializer
+
+
+
+
+```ts
+new ProjenRc(project: Project)
+```
+
+* **project** (<code>[Project](#projen-project)</code>)  *No description*
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
+
+### Methods
+
+
+#### *static* of(project)🔹 <a id="projen-projenrc-of"></a>
+
+Returns the `ProjenRc` instance associated with a project or `undefined` if there is no ProjenRc.
+
+```ts
+static of(project: Project): ProjenRc
+```
+
+* **project** (<code>[Project](#projen-project)</code>)  The project.
+
+__Returns__:
+* <code>[ProjenRc](#projen-projenrc)</code>
+
+
+
 ## class Projenrc 🔹 <a id="projen-projenrc"></a>
 
 Sets up a project to use JSON for projenrc.
 
-__Extends__: [Component](#projen-component)
+__Extends__: [ProjenRc](#projen-projenrc)
 
 ### Initializer
 
@@ -2421,6 +2467,14 @@ new Projenrc(project: Project, options?: ProjenrcOptions)
 * **options** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  *No description*
   * **filename** (<code>string</code>)  The name of the projenrc file. __*Default*__: ".projenrc.json"
 
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
 
 
 
@@ -7844,7 +7898,7 @@ This will install `org.projen/projen` as a Maven dependency and will add a
 
 __Submodule__: java
 
-__Extends__: [Component](#projen-component)
+__Extends__: [ProjenRc](#projen-projenrc)
 
 ### Initializer
 
@@ -7870,6 +7924,7 @@ new java.Projenrc(project: Project, pom: Pom, options?: ProjenrcOptions)
 Name | Type | Description 
 -----|------|-------------
 **className**🔹 | <code>string</code> | The name of the java class that includes the projen entrypoint.
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
 
 
 
@@ -9066,7 +9121,7 @@ Sets up a javascript project to use TypeScript for projenrc.
 
 __Submodule__: javascript
 
-__Extends__: [Component](#projen-component)
+__Extends__: [ProjenRc](#projen-projenrc)
 
 ### Initializer
 
@@ -9081,6 +9136,14 @@ new javascript.Projenrc(project: Project, options?: ProjenrcOptions)
 * **options** (<code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code>)  *No description*
   * **filename** (<code>string</code>)  The name of the projenrc file. __*Default*__: ".projenrc.js"
 
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
 
 
 
@@ -9489,7 +9552,7 @@ This will install `projen` as a Python dependency and will add a
 
 __Submodule__: python
 
-__Extends__: [Component](#projen-component)
+__Extends__: [ProjenRc](#projen-projenrc)
 
 ### Initializer
 
@@ -9505,6 +9568,14 @@ new python.Projenrc(project: Project, options?: ProjenrcOptions)
   * **filename** (<code>string</code>)  The name of the projenrc file. __*Default*__: ".projenrc.py"
   * **projenVersion** (<code>string</code>)  The projen version to use. __*Default*__: current version
 
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The name of the projenrc file.
 
 
 
@@ -10342,7 +10413,7 @@ Sets up a typescript project to use TypeScript for projenrc.
 
 __Submodule__: typescript
 
-__Extends__: [Component](#projen-component)
+__Extends__: [ProjenRc](#projen-projenrc)
 
 ### Initializer
 
@@ -10358,6 +10429,14 @@ new typescript.Projenrc(project: TypeScriptProject, options?: ProjenrcOptions)
   * **filename** (<code>string</code>)  The name of the projenrc file. __*Default*__: ".projenrc.ts"
   * **projenCodeDir** (<code>string</code>)  A directory tree that may contain *.ts files that can be referenced from your projenrc typescript file. __*Default*__: "projenrc"
 
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
 
 
 
