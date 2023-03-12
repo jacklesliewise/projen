@@ -2,7 +2,7 @@ import { resolve } from "path";
 import { existsSync, outputFileSync } from "fs-extra";
 import { renderJavaScriptOptions } from "./render-options";
 import { Project } from "../project";
-import { ProjenRc } from "../projenrc/projenrc";
+import { Projenrc as BaseProjenrc } from "../rcfile";
 export interface ProjenrcOptions {
   /**
    * The name of the projenrc file.
@@ -14,7 +14,7 @@ export interface ProjenrcOptions {
 /**
  * Sets up a javascript project to use TypeScript for projenrc.
  */
-export class Projenrc extends ProjenRc {
+export class Projenrc extends BaseProjenrc {
   public readonly filePath: string;
 
   constructor(project: Project, options: ProjenrcOptions = {}) {

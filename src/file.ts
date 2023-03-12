@@ -4,7 +4,7 @@ import { resolve } from "./_resolve";
 import { PROJEN_MARKER, PROJEN_RC } from "./common";
 import { Component } from "./component";
 import { Project } from "./project";
-import { ProjenRc } from "./projenrc";
+import { Projenrc } from "./rcfile";
 import { isExecutable, isWritable, tryReadFileSync, writeFile } from "./util";
 
 export interface FileBaseOptions {
@@ -87,7 +87,7 @@ export abstract class FileBase extends Component {
     this.path = filePath;
 
     // `marker` is empty if project is being ejected or if explicitly disabled
-    const projenrc = ProjenRc.of(project)?.filePath ?? PROJEN_RC;
+    const projenrc = Projenrc.of(project)?.filePath ?? PROJEN_RC;
     this.marker =
       project.ejected || options.marker === false
         ? undefined

@@ -5,7 +5,7 @@ import { PROJEN_VERSION } from "../common";
 import { DependencyType } from "../dependencies";
 import { readJsiiManifest } from "../inventory";
 import { Project } from "../project";
-import { ProjenRc } from "../projenrc/projenrc";
+import { Projenrc as BaseProjenrc } from "../rcfile";
 
 /**
  * Options for `Projenrc`.
@@ -30,7 +30,7 @@ export interface ProjenrcOptions {
  * This will install `projen` as a Python dependency and will add a
  * `synth` task which will run `.projenrc.py`.
  */
-export class Projenrc extends ProjenRc {
+export class Projenrc extends BaseProjenrc {
   /**
    * The name of the projenrc file.
    */

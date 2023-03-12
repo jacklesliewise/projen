@@ -5,7 +5,7 @@ import { PROJEN_VERSION } from "../common";
 import { DependencyType } from "../dependencies";
 import { ProjectOption, readJsiiManifest } from "../inventory";
 import { Project } from "../project";
-import { ProjenRc } from "../projenrc/projenrc";
+import { Projenrc as BaseProjenrc } from "../rcfile";
 
 /**
  * Options for `Projenrc`.
@@ -45,7 +45,7 @@ export interface ProjenrcOptions {
  * `synth` task which will compile & execute `main()` from
  * `src/main/java/projenrc.java`.
  */
-export class Projenrc extends ProjenRc {
+export class Projenrc extends BaseProjenrc {
   /**
    * The name of the java class that includes the projen entrypoint.
    */
