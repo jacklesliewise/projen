@@ -23,8 +23,7 @@ Name|Description
 [Project](#projen-project)|Base project.
 [ProjectBuild](#projen-projectbuild)|Manages a standard build process for all projects.
 [Projects](#projen-projects)|Programmatic API for projen.
-[ProjenRc](#projen-projenrc)|A component representing the projen runtime configuration.
-[Projenrc](#projen-projenrc)|Sets up a project to use JSON for projenrc.
+[Projenrc](#projen-projenrc)|*No description*
 [Renovatebot](#projen-renovatebot)|Defines renovatebot configuration for projen project.
 [SampleDir](#projen-sampledir)|Renders the given files into the directory if the directory does not exist.
 [SampleFile](#projen-samplefile)|Produces a file with the given contents but only once, if the file doesn't already exist.
@@ -123,6 +122,8 @@ Name|Description
 [python.SetupPy](#projen-python-setuppy)|Python packaging script where package metadata can be placed.
 [python.Setuptools](#projen-python-setuptools)|Manages packaging through setuptools with a setup.py script.
 [python.Venv](#projen-python-venv)|Manages a virtual environment through the Python venv module.
+[rcfile.Projenrc](#projen-rcfile-projenrc)|A component representing the projen runtime configuration.
+[rcfile.ProjenrcJson](#projen-rcfile-projenrcjson)|Sets up a project to use JSON for projenrc.
 [release.Publisher](#projen-release-publisher)|Implements GitHub jobs for publishing modules to package managers.
 [release.Release](#projen-release-release)|Manages releases (currently through GitHub workflows).
 [release.ReleaseTrigger](#projen-release-releasetrigger)|Used to manage release strategies.
@@ -361,6 +362,7 @@ Name|Description
 [python.RequirementsFileOptions](#projen-python-requirementsfileoptions)|*No description*
 [python.SetupPyOptions](#projen-python-setuppyoptions)|Fields to pass in the setup() function of setup.py.
 [python.VenvOptions](#projen-python-venvoptions)|Options for venv.
+[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)|*No description*
 [release.BranchOptions](#projen-release-branchoptions)|Options for a release branch.
 [release.CodeArtifactOptions](#projen-release-codeartifactoptions)|Options for publishing packages to AWS CodeArtifact.
 [release.CommonPublishOptions](#projen-release-commonpublishoptions)|Common publishing options.
@@ -2056,7 +2058,7 @@ new Project(options: ProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
 
@@ -2403,56 +2405,11 @@ static createProject(options: CreateProjectOptions): void
 
 
 
-## class ProjenRc 🔹 <a id="projen-projenrc"></a>
-
-A component representing the projen runtime configuration.
-
-__Extends__: [Component](#projen-component)
-__Implemented by__: [java.Projenrc](#projen-java-projenrc), [javascript.Projenrc](#projen-javascript-projenrc), [python.Projenrc](#projen-python-projenrc), [typescript.Projenrc](#projen-typescript-projenrc), [Projenrc](#projen-projenrc)
-
-### Initializer
+## class Projenrc ⚠️ <a id="projen-projenrc"></a>
 
 
 
-
-```ts
-new ProjenRc(project: Project)
-```
-
-* **project** (<code>[Project](#projen-project)</code>)  *No description*
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**filePath**🔹 | <code>string</code> | The path of the projenrc file.
-
-### Methods
-
-
-#### *static* of(project)🔹 <a id="projen-projenrc-of"></a>
-
-Returns the `ProjenRc` instance associated with a project or `undefined` if there is no ProjenRc.
-
-```ts
-static of(project: Project): ProjenRc
-```
-
-* **project** (<code>[Project](#projen-project)</code>)  The project.
-
-__Returns__:
-* <code>[ProjenRc](#projen-projenrc)</code>
-
-
-
-## class Projenrc 🔹 <a id="projen-projenrc"></a>
-
-Sets up a project to use JSON for projenrc.
-
-__Extends__: [ProjenRc](#projen-projenrc)
+__Extends__: [rcfile.ProjenrcJson](#projen-rcfile-projenrcjson)
 
 ### Initializer
 
@@ -2460,21 +2417,13 @@ __Extends__: [ProjenRc](#projen-projenrc)
 
 
 ```ts
-new Projenrc(project: Project, options?: ProjenrcOptions)
+new Projenrc(project: Project, options?: ProjenrcJsonOptions)
 ```
 
 * **project** (<code>[Project](#projen-project)</code>)  *No description*
-* **options** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  *No description*
+* **options** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  *No description*
   * **filename** (<code>string</code>)  The name of the projenrc file. __*Default*__: ".projenrc.json"
 
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**filePath**🔹 | <code>string</code> | The path of the projenrc file.
 
 
 
@@ -3519,7 +3468,7 @@ new awscdk.AwsCdkConstructLibrary(options: AwsCdkConstructLibraryOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -3991,7 +3940,7 @@ new awscdk.AwsCdkJavaApp(options: AwsCdkJavaAppOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -4103,7 +4052,7 @@ new awscdk.AwsCdkPythonApp(options: AwsCdkPythonAppOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -4208,7 +4157,7 @@ new awscdk.AwsCdkTypeScriptApp(options: AwsCdkTypeScriptAppOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -4519,7 +4468,7 @@ new awscdk.ConstructLibraryAws(options: AwsCdkConstructLibraryOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -5146,7 +5095,7 @@ new cdk.ConstructLibrary(options: ConstructLibraryOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -5405,7 +5354,7 @@ new cdk.JsiiProject(options: JsiiProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -5721,7 +5670,7 @@ new cdk8s.Cdk8sPythonApp(options: Cdk8sPythonOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -5818,7 +5767,7 @@ new cdk8s.Cdk8sTypeScriptApp(options: Cdk8sTypeScriptAppOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -6001,7 +5950,7 @@ new cdk8s.ConstructLibraryCdk8s(options: ConstructLibraryCdk8sOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -6243,7 +6192,7 @@ new cdktf.ConstructLibraryCdktf(options: ConstructLibraryCdktfOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -6819,7 +6768,7 @@ new github.GitHubProject(options: GitHubProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -7555,7 +7504,7 @@ new java.JavaProject(options: JavaProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -7898,7 +7847,7 @@ This will install `org.projen/projen` as a Maven dependency and will add a
 
 __Submodule__: java
 
-__Extends__: [ProjenRc](#projen-projenrc)
+__Extends__: [rcfile.Projenrc](#projen-rcfile-projenrc)
 
 ### Initializer
 
@@ -8610,7 +8559,7 @@ new javascript.NodeProject(options: NodeProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -9121,7 +9070,7 @@ Sets up a javascript project to use TypeScript for projenrc.
 
 __Submodule__: javascript
 
-__Extends__: [ProjenRc](#projen-projenrc)
+__Extends__: [rcfile.Projenrc](#projen-rcfile-projenrc)
 
 ### Initializer
 
@@ -9552,7 +9501,7 @@ This will install `projen` as a Python dependency and will add a
 
 __Submodule__: python
 
-__Extends__: [ProjenRc](#projen-projenrc)
+__Extends__: [rcfile.Projenrc](#projen-rcfile-projenrc)
 
 ### Initializer
 
@@ -9664,7 +9613,7 @@ new python.PythonProject(options: PythonProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -9977,6 +9926,85 @@ setupEnvironment(): void
 
 
 
+
+
+
+## class Projenrc 🔹 <a id="projen-rcfile-projenrc"></a>
+
+A component representing the projen runtime configuration.
+
+__Submodule__: rcfile
+
+__Extends__: [Component](#projen-component)
+__Implemented by__: [java.Projenrc](#projen-java-projenrc), [javascript.Projenrc](#projen-javascript-projenrc), [python.Projenrc](#projen-python-projenrc), [rcfile.ProjenrcJson](#projen-rcfile-projenrcjson), [typescript.Projenrc](#projen-typescript-projenrc), [Projenrc](#projen-projenrc)
+
+### Initializer
+
+
+
+
+```ts
+new rcfile.Projenrc(project: Project)
+```
+
+* **project** (<code>[Project](#projen-project)</code>)  *No description*
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
+
+### Methods
+
+
+#### *static* of(project)🔹 <a id="projen-rcfile-projenrc-of"></a>
+
+Returns the `Projenrc` instance associated with a project or `undefined` if there is no Projenrc.
+
+```ts
+static of(project: Project): Projenrc
+```
+
+* **project** (<code>[Project](#projen-project)</code>)  The project.
+
+__Returns__:
+* <code>[rcfile.Projenrc](#projen-rcfile-projenrc)</code>
+
+
+
+## class ProjenrcJson 🔹 <a id="projen-rcfile-projenrcjson"></a>
+
+Sets up a project to use JSON for projenrc.
+
+__Submodule__: rcfile
+
+__Extends__: [rcfile.Projenrc](#projen-rcfile-projenrc)
+
+### Initializer
+
+
+
+
+```ts
+new rcfile.ProjenrcJson(project: Project, options?: ProjenrcJsonOptions)
+```
+
+* **project** (<code>[Project](#projen-project)</code>)  *No description*
+* **options** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  *No description*
+  * **filename** (<code>string</code>)  The name of the projenrc file. __*Default*__: ".projenrc.json"
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**filePath**🔹 | <code>string</code> | The path of the projenrc file.
 
 
 
@@ -10413,7 +10441,7 @@ Sets up a typescript project to use TypeScript for projenrc.
 
 __Submodule__: typescript
 
-__Extends__: [ProjenRc](#projen-projenrc)
+__Extends__: [rcfile.Projenrc](#projen-rcfile-projenrc)
 
 ### Initializer
 
@@ -10466,7 +10494,7 @@ new typescript.TypeScriptAppProject(options: TypeScriptProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -10622,7 +10650,7 @@ new typescript.TypeScriptLibraryProject(options: TypeScriptProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -10778,7 +10806,7 @@ new typescript.TypeScriptProject(options: TypeScriptProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -11295,7 +11323,7 @@ new web.NextJsProject(options: NextJsProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -11449,7 +11477,7 @@ new web.NextJsTypeScriptProject(options: NextJsTypeScriptProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -11675,7 +11703,7 @@ new web.ReactProject(options: ReactProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -11871,7 +11899,7 @@ new web.ReactTypeScriptProject(options: ReactTypeScriptProjectOptions)
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projenCommand** (<code>string</code>)  The shell command to use in order to run the projen CLI. __*Default*__: "npx projen"
   * **projenrcJson** (<code>boolean</code>)  Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation. __*Default*__: false
-  * **projenrcJsonOptions** (<code>[ProjenrcOptions](#projen-projenrcoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
+  * **projenrcJsonOptions** (<code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code>)  Options for .projenrc.json. __*Default*__: default options
   * **renovatebot** (<code>boolean</code>)  Use renovatebot to handle dependency upgrades. __*Default*__: false
   * **renovatebotOptions** (<code>[RenovatebotOptions](#projen-renovatebotoptions)</code>)  Options for renovatebot. __*Default*__: default options
   * **autoApproveOptions** (<code>[github.AutoApproveOptions](#projen-github-autoapproveoptions)</code>)  Enable and configure the 'auto approve' workflow. __*Default*__: auto approve is disabled
@@ -12768,13 +12796,13 @@ Name | Type | Description
 **parent**?🔹 | <code>[Project](#projen-project)</code> | The parent project, if this project is part of a bigger project.<br/>__*Optional*__
 **projenCommand**?🔹 | <code>string</code> | The shell command to use in order to run the projen CLI.<br/>__*Default*__: "npx projen"
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **renovatebot**?🔹 | <code>boolean</code> | Use renovatebot to handle dependency upgrades.<br/>__*Default*__: false
 **renovatebotOptions**?🔹 | <code>[RenovatebotOptions](#projen-renovatebotoptions)</code> | Options for renovatebot.<br/>__*Default*__: default options
 
 
 
-## struct ProjenrcOptions 🔹 <a id="projen-projenrcoptions"></a>
+## struct ProjenrcOptions ⚠️ <a id="projen-projenrcoptions"></a>
 
 
 
@@ -12783,7 +12811,7 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**filename**?🔹 | <code>string</code> | The name of the projenrc file.<br/>__*Default*__: ".projenrc.json"
+**filename**?⚠️ | <code>string</code> | The name of the projenrc file.<br/>__*Default*__: ".projenrc.json"
 
 
 
@@ -13264,7 +13292,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -13413,7 +13441,7 @@ Name | Type | Description
 **projenrcJava**?🔹 | <code>boolean</code> | Use projenrc in java.<br/>__*Default*__: true
 **projenrcJavaOptions**?🔹 | <code>[java.ProjenrcOptions](#projen-java-projenrcoptions)</code> | Options related to projenrc in java.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **readme**?🔹 | <code>[SampleReadmeProps](#projen-samplereadmeprops)</code> | The README setup.<br/>__*Default*__: { filename: 'README.md', contents: '# replace this' }
 **renovatebot**?🔹 | <code>boolean</code> | Use renovatebot to handle dependency upgrades.<br/>__*Default*__: false
 **renovatebotOptions**?🔹 | <code>[RenovatebotOptions](#projen-renovatebotoptions)</code> | Options for renovatebot.<br/>__*Default*__: default options
@@ -13507,7 +13535,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Use projenrc in javascript.<br/>__*Default*__: false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options related to projenrc in JavaScript.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcPython**?🔹 | <code>boolean</code> | Use projenrc in Python.<br/>__*Default*__: true
 **projenrcPythonOptions**?🔹 | <code>[python.ProjenrcOptions](#projen-python-projenrcoptions)</code> | Options related to projenrc in python.<br/>__*Default*__: default options
 **pytest**?🔹 | <code>boolean</code> | Include pytest tests.<br/>__*Default*__: true
@@ -13648,7 +13676,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -13859,7 +13887,7 @@ Name | Type | Description
 **projenrcJs**?⚠️ | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?⚠️ | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?⚠️ | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?⚠️ | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?⚠️ | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?⚠️ | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?⚠️ | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?⚠️ | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -14284,7 +14312,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -14554,7 +14582,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -14762,7 +14790,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Use projenrc in javascript.<br/>__*Default*__: false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options related to projenrc in JavaScript.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcPython**?🔹 | <code>boolean</code> | Use projenrc in Python.<br/>__*Default*__: true
 **projenrcPythonOptions**?🔹 | <code>[python.ProjenrcOptions](#projen-python-projenrcoptions)</code> | Options related to projenrc in python.<br/>__*Default*__: default options
 **pytest**?🔹 | <code>boolean</code> | Include pytest tests.<br/>__*Default*__: true
@@ -14895,7 +14923,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -15057,7 +15085,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -15250,7 +15278,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -15707,7 +15735,7 @@ Name | Type | Description
 **projenCredentials**?🔹 | <code>[github.GithubCredentials](#projen-github-githubcredentials)</code> | Choose a method of providing GitHub API access for projen workflows.<br/>__*Default*__: use a personal access token named PROJEN_GITHUB_TOKEN
 **projenTokenSecret**?⚠️ | <code>string</code> | The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows.<br/>__*Default*__: "PROJEN_GITHUB_TOKEN"
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **readme**?🔹 | <code>[SampleReadmeProps](#projen-samplereadmeprops)</code> | The README setup.<br/>__*Default*__: { filename: 'README.md', contents: '# replace this' }
 **renovatebot**?🔹 | <code>boolean</code> | Use renovatebot to handle dependency upgrades.<br/>__*Default*__: false
 **renovatebotOptions**?🔹 | <code>[RenovatebotOptions](#projen-renovatebotoptions)</code> | Options for renovatebot.<br/>__*Default*__: default options
@@ -16544,7 +16572,7 @@ Name | Type | Description
 **projenrcJava**?🔹 | <code>boolean</code> | Use projenrc in java.<br/>__*Default*__: true
 **projenrcJavaOptions**?🔹 | <code>[java.ProjenrcOptions](#projen-java-projenrcoptions)</code> | Options related to projenrc in java.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **readme**?🔹 | <code>[SampleReadmeProps](#projen-samplereadmeprops)</code> | The README setup.<br/>__*Default*__: { filename: 'README.md', contents: '# replace this' }
 **renovatebot**?🔹 | <code>boolean</code> | Use renovatebot to handle dependency upgrades.<br/>__*Default*__: false
 **renovatebotOptions**?🔹 | <code>[RenovatebotOptions](#projen-renovatebotoptions)</code> | Options for renovatebot.<br/>__*Default*__: default options
@@ -16599,7 +16627,7 @@ Name | Type | Description
 **projenrcJava**?🔹 | <code>boolean</code> | Use projenrc in java.<br/>__*Default*__: true
 **projenrcJavaOptions**?🔹 | <code>[java.ProjenrcOptions](#projen-java-projenrcoptions)</code> | Options related to projenrc in java.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **readme**?🔹 | <code>[SampleReadmeProps](#projen-samplereadmeprops)</code> | The README setup.<br/>__*Default*__: { filename: 'README.md', contents: '# replace this' }
 **renovatebot**?🔹 | <code>boolean</code> | Use renovatebot to handle dependency upgrades.<br/>__*Default*__: false
 **renovatebotOptions**?🔹 | <code>[RenovatebotOptions](#projen-renovatebotoptions)</code> | Options for renovatebot.<br/>__*Default*__: default options
@@ -17146,7 +17174,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
 **publishTasks**?🔹 | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows.<br/>__*Default*__: false
 **pullRequestTemplate**?🔹 | <code>boolean</code> | Include a GitHub pull request template.<br/>__*Default*__: true
@@ -17715,7 +17743,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Use projenrc in javascript.<br/>__*Default*__: false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options related to projenrc in JavaScript.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcPython**?🔹 | <code>boolean</code> | Use projenrc in Python.<br/>__*Default*__: true
 **projenrcPythonOptions**?🔹 | <code>[python.ProjenrcOptions](#projen-python-projenrcoptions)</code> | Options related to projenrc in python.<br/>__*Default*__: default options
 **pytest**?🔹 | <code>boolean</code> | Include pytest tests.<br/>__*Default*__: true
@@ -17791,6 +17819,19 @@ Options for venv.
 Name | Type | Description 
 -----|------|-------------
 **envdir**?🔹 | <code>string</code> | Name of directory to store the environment in.<br/>__*Default*__: ".env"
+
+
+
+## struct ProjenrcJsonOptions 🔹 <a id="projen-rcfile-projenrcjsonoptions"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**filename**?🔹 | <code>string</code> | The name of the projenrc file.<br/>__*Default*__: ".projenrc.json"
 
 
 
@@ -18303,7 +18344,7 @@ Name | Type | Description
 **projenrcJs**?⚠️ | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?⚠️ | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?⚠️ | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?⚠️ | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?⚠️ | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?⚠️ | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?⚠️ | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?⚠️ | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -18449,7 +18490,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -18700,7 +18741,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
 **publishTasks**?🔹 | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows.<br/>__*Default*__: false
 **pullRequestTemplate**?🔹 | <code>boolean</code> | Include a GitHub pull request template.<br/>__*Default*__: true
@@ -18841,7 +18882,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
@@ -19010,7 +19051,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
 **publishTasks**?🔹 | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows.<br/>__*Default*__: false
 **pullRequestTemplate**?🔹 | <code>boolean</code> | Include a GitHub pull request template.<br/>__*Default*__: true
@@ -19180,7 +19221,7 @@ Name | Type | Description
 **projenrcJs**?🔹 | <code>boolean</code> | Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.<br/>__*Default*__: true if projenrcJson is false
 **projenrcJsOptions**?🔹 | <code>[javascript.ProjenrcOptions](#projen-javascript-projenrcoptions)</code> | Options for .projenrc.js.<br/>__*Default*__: default options
 **projenrcJson**?🔹 | <code>boolean</code> | Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.<br/>__*Default*__: false
-**projenrcJsonOptions**?🔹 | <code>[ProjenrcOptions](#projen-projenrcoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
+**projenrcJsonOptions**?🔹 | <code>[rcfile.ProjenrcJsonOptions](#projen-rcfile-projenrcjsonoptions)</code> | Options for .projenrc.json.<br/>__*Default*__: default options
 **projenrcTs**?🔹 | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`).<br/>__*Default*__: false
 **projenrcTsOptions**?🔹 | <code>[typescript.ProjenrcOptions](#projen-typescript-projenrcoptions)</code> | Options for .projenrc.ts.<br/>__*Optional*__
 **publishDryRun**?🔹 | <code>boolean</code> | Instead of actually publishing to package managers, just print the publishing command.<br/>__*Default*__: false
